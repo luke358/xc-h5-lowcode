@@ -2,6 +2,7 @@
 import React from 'react'
 import type { InputProps } from 'antd-mobile'
 import { Input } from 'antd-mobile'
+import { nanoid } from 'nanoid'
 export default {
   label: '输入框',
   key: 'input',
@@ -10,7 +11,7 @@ export default {
     height: true,
   },
   preview: () => <Input placeholder="预览输入框" />,
-  render: ({ props, size }: { props: InputProps & { text: string }; size: any }) => <Input value="test" />,
+  render: ({ props, size }: { props: InputProps & { text: string }; size: any }) => <Input key={nanoid()} placeholder="请输入" />,
   props: {
     // text: createInputProp('按钮内容'),
     // type: createSelectProp('按钮类型', [

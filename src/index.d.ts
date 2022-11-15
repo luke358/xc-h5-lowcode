@@ -12,17 +12,16 @@ interface RenderComponent {
   /** 组件渲染函数 */
   render: (data: {
     props: any
-    model: any
-    styles: CSSProperties
-    block: VisualEditorBlockData
-    custom: Record<string, any>
-  }) => () => JSX.Element
+    styles?: CSSProperties
+    block?: RenderBlockData
+    custom?: Record<string, any>
+  }) => JSX.Element
   /** 组件是否可以被拖拽 */
   draggable?: boolean
   /** 是否显示组件的样式配置项 */
   showStyleConfig?: boolean
   /** 组件属性 */
-  props?: Record<string, VisualEditorProps>
+  props?: Record<string, EditorProps>
   /** 动画集 */
   animations?: Animation[]
   /** 组件事件集合 */
@@ -71,7 +70,7 @@ interface ComponentModules {
   baseWidgets: RenderComponent[] // 基础组件
 }
 
-enum VisualEditorPropsType {
+enum RenderPropsType {
   /** 输入框 */
   input = 'input',
   /** 数字输入框 */
@@ -90,8 +89,8 @@ enum VisualEditorPropsType {
   crossSortable = 'CrossSortable',
 }
 
-type VisualEditorProps = {
-  type: VisualEditorPropsType
+type EditorProps = {
+  type: RenderPropsType
   /** 表单项标签名称 */
   label: string
   /** 表单项提示说明 */

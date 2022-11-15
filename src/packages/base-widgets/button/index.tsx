@@ -1,6 +1,7 @@
 import React from 'react'
 import type { ButtonProps } from 'antd-mobile'
 import { Button } from 'antd-mobile'
+import { nanoid } from 'nanoid'
 export default {
   label: '按钮',
   key: 'button',
@@ -9,7 +10,7 @@ export default {
     height: true,
   },
   preview: () => <Button>预览按钮</Button>,
-  render: ({ props, size }: { props: ButtonProps & { text: string }; size: any }) => <Button style={{ height: `${size.height}px`, width: `${size.width}px` }} type={props.type} size={props.size}>{props.text || '渲染按钮'}</Button>,
+  render: ({ props }: { props: ButtonProps & { text: string }; size: any }) => <Button type={props.type} size={props.size}>{props.text || '渲染按钮'}</Button>,
   props: {
     // text: createInputProp('按钮内容'),
     // type: createSelectProp('按钮类型', [

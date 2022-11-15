@@ -8,7 +8,7 @@ export default function Basic() {
   return (
     <div>
       {baseWidgets.map((item, i) => {
-        return <CompPreview key={i}>{item.preview()}</CompPreview>
+        return <CompPreview key={i} data={item}>{item.preview()}</CompPreview>
       })}
     </div>
   )
