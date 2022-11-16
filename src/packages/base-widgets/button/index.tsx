@@ -1,7 +1,7 @@
 import React from 'react'
 import type { ButtonProps } from 'antd-mobile'
 import { Button } from 'antd-mobile'
-import { nanoid } from 'nanoid'
+
 export default {
   label: '按钮',
   key: 'button',
