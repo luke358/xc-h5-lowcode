@@ -20,8 +20,13 @@ export default function Editor() {
   const [, drop] = useDrop(() => ({
     accept: 'box',
     drop: (item: { data: RenderComponent; index: number }) => {
-      if (typeof item.index !== 'number')
+      if (typeof item.index !== 'number') {
         setList([...cloneDeep(list), cloneDeep(item.data)])
+        setActiveComp(list.length)
+      }
+      else {
+        setActiveComp(item.index)
+      }
     },
     collect: monitor => ({
       isOver: monitor.isOver({

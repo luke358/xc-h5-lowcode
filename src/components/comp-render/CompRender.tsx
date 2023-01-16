@@ -49,7 +49,7 @@ export default function CompRender(props: PropsWithChildren<{
 
   drag(drop(ref))
   return (
-    <div ref={ref} onClick={() => { onClick && onClick(index) }} className={classnames('comp-render', { 'comp-render': active })} style={{ opacity }}>
+    <div ref={ref} onClick={() => { onClick && onClick(index) }} className={classnames('comp-render', { 'comp-render-focus': active })} style={{ opacity }}>
       {props.children}
     </div>
   )
