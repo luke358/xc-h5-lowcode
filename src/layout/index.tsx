@@ -11,14 +11,14 @@ const { Header, Sider, Content } = Layout
 export default function index() {
   return (
     <Layout style={{ height: '100%' }}>
-      <Header style={{ height: 80, background: '#fff' }} color="#fff" className="relative shadow-md z-10">
+      <Header style={{ height: 60, background: '#fff' }} color="#fff" className="relative shadow-sm z-10">
         <LayoutHeader />
       </Header>
-      <Layout style={{ height: 'cale(100%) - 80px' }}>
-        <Sider width={380} theme="light">
+      <Layout style={{ height: 'cale(100%) - 60px' }}>
+        <Sider width={380} theme="light" className=" pt-[15px]">
           <LayoutLeft />
         </Sider>
-        <Content>
+        <Content className=" pt-[15px]">
           <LayoutMain />
         </Content>
         <Sider theme="light">
