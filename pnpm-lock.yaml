@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ant-design/icons': ^5.0.1
   '@luke358/eslint-config': ^0.1.1
   '@types/lodash-es': ^4.17.6
   '@types/node': ^18.11.14
@@ -29,6 +30,7 @@ specifiers:
   vite: ^4.0.1
 
 dependencies:
+  '@ant-design/icons': 5.0.1_biqbaboplfbrettd7655fr4n2y
   animate.css: 4.1.1
   antd: 5.0.6_biqbaboplfbrettd7655fr4n2y
   antd-mobile: 5.27.0_biqbaboplfbrettd7655fr4n2y
@@ -74,6 +76,12 @@ packages:
       '@ctrl/tinycolor': 3.4.1
     dev: false
 
+  /@ant-design/colors/7.0.0:
+    resolution: {integrity: sha512-iVm/9PfGCbC0dSMBrz7oiEXZaaGH7ceU40OJEfKmyuzR9R5CRimJYPlRiFtMQGQcbNMea/ePcoIebi4ASGYXtg==}
+    dependencies:
+      '@ctrl/tinycolor': 3.4.1
+    dev: false
+
   /@ant-design/cssinjs/1.1.1_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-GtgALFUwwkOAwc8JundzcdLDckyrc+tgxpx4RGZQTDNOuh5VnngybpRfwvug8znt5/Zy9uNkzrSUPO05kBivcg==}
     peerDependencies:
@@ -103,6 +111,22 @@ packages:
       react-dom: '>=16.0.0'
     dependencies:
       '@ant-design/colors': 6.0.0
+      '@ant-design/icons-svg': 4.2.1
+      '@babel/runtime': 7.20.1
+      classnames: 2.3.2
+      rc-util: 5.25.3_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@ant-design/icons/5.0.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-ZyF4ksXCcdtwA/1PLlnFLcF/q8/MhwxXhKHh4oCHDA4Ip+ZzAHoICtyp4wZWfiCVDP0yuz3HsjyvuldHFb3wjA==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
+    dependencies:
+      '@ant-design/colors': 7.0.0
       '@ant-design/icons-svg': 4.2.1
       '@babel/runtime': 7.20.1
       classnames: 2.3.2

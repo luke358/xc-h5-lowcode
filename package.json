@@ -10,6 +10,7 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "animate.css": "^4.1.1",
     "antd": "^5.0.6",
     "antd-mobile": "^5.27.0",

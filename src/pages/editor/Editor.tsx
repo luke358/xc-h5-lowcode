@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-// import { useDrop } from 'react-dnd'
 import { cloneDeep } from 'lodash-es'
 import { useDrop } from 'react-dnd'
+import { nanoid } from 'nanoid'
 import CompRender from '../../components/comp-render'
 export default function Editor() {
   const [list, setList] = useState<RenderComponent[]>([])
-  const [activeComp, setActiveComp] = useState<number | null>(null)
+  const [activeComp, setActiveComp] = useState<number>(-1)
   const changePosition = (dragIndex: number, hoverIndex: number) => {
     const _list = cloneDeep(list)
     const tmp = _list[dragIndex]
@@ -21,7 +21,7 @@ export default function Editor() {
     accept: 'box',
     drop: (item: { data: RenderComponent; index: number }) => {
       if (typeof item.index !== 'number') {
-        setList([...cloneDeep(list), cloneDeep(item.data)])
+        setList([...cloneDeep(list), { ...cloneDeep(item.data), _id: nanoid() }])
         setActiveComp(list.length)
       }
       else {
@@ -36,14 +36,48 @@ export default function Editor() {
     }),
   }), [list])
 
-  // eslint-disable-next-line no-console
-  console.log(list)
+  const moveComponent = (index: number, type: string) => {
+    if (type === 'up') {
+      // 这里不生效
+      setActiveComp(pre => pre - 1)
+      changePosition(index - 1, index)
+    }
+    else {
+      // 这里不生效
+      setActiveComp(pre => pre + 1)
+      changePosition(index + 1, index)
+    }
+  }
+  const copy = (index: number) => {
+    const _comp = cloneDeep(list[index])
+    const _list = cloneDeep(list)
+    _list.splice(index, 0, _comp)
+    setList(_list)
+  }
+  const deleteComponent = (index: number) => {
+    const _list = cloneDeep(list)
+    _list.splice(index, 1)
+    setList(_list)
+  }
 
   return (
     <div ref={drop} className="flex justify-center min-h-full w-full">
-      <div className="w-[350px] bg-white">
+      {activeComp}
+      <div className="w-[350px] bg-white relative">
         {list?.map((d: RenderComponent, i) => {
-          return <CompRender onClick={setActiveComp} active={activeComp === i} changePosition={changePosition} addComponent={addComponent} data={d} key={i} index={i}>
+          return <CompRender
+            onClick={setActiveComp}
+            active={activeComp === i}
+            changePosition={changePosition}
+            addComponent={addComponent}
+            data={d}
+            key={d._id}
+            index={i}
+            total={list.length}
+            moveComponent={moveComponent}
+            copy={copy}
+            deleteComponent={deleteComponent}
+          >
             {d.render({ props: { type: 'default' } })}
           </CompRender>
         })}
