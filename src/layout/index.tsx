@@ -11,7 +11,7 @@ import LayoutRight from './components/layout-right'
 import LayoutHeader from './components/layout-header'
 import LayoutMain from './components/layout-main'
 const { Header, Sider, Content } = Layout
-export const EditorContext = React.createContext<{ editorList: RenderComponent[]; delComponent?: (idx: number) => void }>({ editorList: [] })
+export const EditorContext = React.createContext<{ editorList: RenderComponent[]; delComponent?: (idx: number) => void; moveComponent?: (startIndex: number, endIndex: number) => void }>({ editorList: [] })
 
 const reorder = (list: RenderComponent[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
@@ -19,6 +19,10 @@ const reorder = (list: RenderComponent[], startIndex: number, endIndex: number) 
   result.splice(endIndex, 0, removed)
 
   return result
+}
+
+const move = (list: RenderComponent[], startIndex: number, endIndex: number) => {
+  return reorder(list, startIndex, endIndex)
 }
 
 const del = (list: RenderComponent[], index: number) => {
@@ -29,7 +33,10 @@ const del = (list: RenderComponent[], index: number) => {
 export default function index() {
   const [editorList, setList] = useState<RenderComponent[]>([])
   const updatePage = useUpdate()
-
+  const moveComponent = (startIndex: number, endIndex: number) => {
+    setList(move(editorList, startIndex, endIndex))
+    updatePage()
+  }
   const delComponent = (idx: number) => {
     setList(del(editorList, idx))
     updatePage()
@@ -58,7 +65,7 @@ export default function index() {
     }
   }
   return (
-    <EditorContext.Provider value={{ editorList, delComponent }}>
+    <EditorContext.Provider value={{ editorList, delComponent, moveComponent }}>
       <DragDropContext onDragEnd={onDragEnd}>
         <Layout style={{ height: '100%' }}>
           <Header style={{ height: 60, background: '#fff' }} color="#fff" className="relative shadow-sm z-10">
