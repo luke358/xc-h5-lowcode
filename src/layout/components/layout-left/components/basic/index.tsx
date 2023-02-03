@@ -1,5 +1,6 @@
 import React from 'react'
-import CompPreview from '../../../../../components/comp-preview'
+import DragList from '../../../../../components/drag-list'
+// import CompPreview from '../../../../../components/comp-preview'
 import { editorConfig } from '../../../../../register'
 
 export default function Basic() {
@@ -7,9 +8,10 @@ export default function Basic() {
 
   return (
     <div>
-      {baseWidgets.map((item, i) => {
+      {/* {baseWidgets.map((item, i) => {
         return <CompPreview key={i} data={item}>{item.preview()}</CompPreview>
-      })}
+      })} */}
+      <DragList id="baseWidgets" data={baseWidgets} />
     </div>
   )
 }

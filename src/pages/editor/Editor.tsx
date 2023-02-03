@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { cloneDeep } from 'lodash-es'
-import { useDrop } from 'react-dnd'
-import { nanoid } from 'nanoid'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { EditorContext } from '../../layout'
 import CompRender from '../../components/comp-render'
 export default function Editor() {
+  const { editorList } = useContext(EditorContext)
   const [list, setList] = useState<RenderComponent[]>([])
   const [activeComp, setActiveComp] = useState<number>(-1)
   const changePosition = (dragIndex: number, hoverIndex: number) => {
@@ -17,24 +18,6 @@ export default function Editor() {
   const addComponent = (comp: RenderComponent) => {
     setList([...cloneDeep(list), cloneDeep(comp)])
   }
-  const [, drop] = useDrop(() => ({
-    accept: 'box',
-    drop: (item: { data: RenderComponent; index: number }) => {
-      if (typeof item.index !== 'number') {
-        setList([...cloneDeep(list), { ...cloneDeep(item.data), _id: nanoid() }])
-        setActiveComp(list.length)
-      }
-      else {
-        setActiveComp(item.index)
-      }
-    },
-    collect: monitor => ({
-      isOver: monitor.isOver({
-        shallow: true,
-      }),
-      canDrop: monitor.canDrop(),
-    }),
-  }), [list])
 
   const moveComponent = (index: number, type: string) => {
     if (type === 'up') {
@@ -61,27 +44,45 @@ export default function Editor() {
   }
 
   return (
-    <div ref={drop} className="flex justify-center min-h-full w-full">
-      {activeComp}
-      <div className="w-[350px] bg-white relative">
-        {list?.map((d: RenderComponent, i) => {
-          return <CompRender
-            onClick={setActiveComp}
-            active={activeComp === i}
-            changePosition={changePosition}
-            addComponent={addComponent}
-            data={d}
-            key={d._id}
-            index={i}
-            total={list.length}
-            moveComponent={moveComponent}
-            copy={copy}
-            deleteComponent={deleteComponent}
+    <div className="flex justify-center min-h-full w-full">
+      <Droppable droppableId="COMPONENT">
+        {provided => (
+          <div className="w-[350px] bg-white relative"
+            ref={provided.innerRef}
+            {...provided.droppableProps}
           >
-            {d.render({ props: { type: 'default' } })}
-          </CompRender>
-        })}
-      </div>
+            {editorList?.map((d: RenderComponent, i) => {
+              return <Draggable key={d._id} draggableId={d._id!} index={i}>
+                {provided => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}>
+                    <CompRender
+                      onClick={setActiveComp}
+                      active={activeComp === i}
+                      changePosition={changePosition}
+                      addComponent={addComponent}
+                      data={d}
+                      key={d._id}
+                      index={i}
+                      total={list.length}
+                      moveComponent={moveComponent}
+                      copy={copy}
+                      deleteComponent={deleteComponent}
+                    >
+                      {d.render({ props: { type: 'default' } })}
+                    </CompRender>
+                  </div>
+
+                )}
+              </Draggable>
+            })}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+
     </div>
   )
 }
