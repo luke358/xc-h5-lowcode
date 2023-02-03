@@ -12,6 +12,13 @@ import LayoutMain from './components/layout-main'
 const { Header, Sider, Content } = Layout
 export const EditorContext = React.createContext<{ editorList: RenderComponent[] }>({ editorList: [] })
 
+const reorder = (list: RenderComponent[], startIndex: number, endIndex: number) => {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+
+  return result
+}
 export default function index() {
   const [editorList, setList] = useState<RenderComponent[]>([])
 
@@ -34,6 +41,7 @@ export default function index() {
       }
       else {
         // 排序
+        setList(reorder(editorList, source.index, destination.index))
       }
     }
   }
