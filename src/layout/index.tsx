@@ -28,7 +28,9 @@ export default function index() {
     if (destination.droppableId === 'COMPONENT') {
       if (source.droppableId !== 'COMPONENT') {
         // 复制
-        setList([...editorList, { ...cloneDeep(editorConfig.componentMap[draggableId]), _id: nanoid() }])
+        const _editorList = cloneDeep(editorList)
+        _editorList.splice(destination.index, 0, { ...cloneDeep(editorConfig.componentMap[draggableId]), _id: nanoid() })
+        setList(_editorList)
       }
       else {
         // 排序
