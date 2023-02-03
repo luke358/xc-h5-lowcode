@@ -4,13 +4,14 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import { Layout } from 'antd'
 import { cloneDeep } from 'lodash-es'
 import { nanoid } from 'nanoid'
+import { useUpdate } from 'ahooks'
 import { editorConfig } from '../register'
 import LayoutLeft from './components/layout-left'
 import LayoutRight from './components/layout-right'
 import LayoutHeader from './components/layout-header'
 import LayoutMain from './components/layout-main'
 const { Header, Sider, Content } = Layout
-export const EditorContext = React.createContext<{ editorList: RenderComponent[] }>({ editorList: [] })
+export const EditorContext = React.createContext<{ editorList: RenderComponent[]; delComponent?: (idx: number) => void }>({ editorList: [] })
 
 const reorder = (list: RenderComponent[], startIndex: number, endIndex: number) => {
   const result = Array.from(list)
@@ -19,9 +20,20 @@ const reorder = (list: RenderComponent[], startIndex: number, endIndex: number) 
 
   return result
 }
+
+const del = (list: RenderComponent[], index: number) => {
+  list.splice(index, 1)
+  return list
+}
+
 export default function index() {
   const [editorList, setList] = useState<RenderComponent[]>([])
+  const updatePage = useUpdate()
 
+  const delComponent = (idx: number) => {
+    setList(del(editorList, idx))
+    updatePage()
+  }
   const onDragEnd = (result: DropResult) => {
     const { source, destination, draggableId } = result
     console.log(editorConfig.componentMap)
@@ -46,7 +58,7 @@ export default function index() {
     }
   }
   return (
-    <EditorContext.Provider value={{ editorList }}>
+    <EditorContext.Provider value={{ editorList, delComponent }}>
       <DragDropContext onDragEnd={onDragEnd}>
         <Layout style={{ height: '100%' }}>
           <Header style={{ height: 60, background: '#fff' }} color="#fff" className="relative shadow-sm z-10">

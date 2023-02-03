@@ -4,7 +4,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { EditorContext } from '../../layout'
 import CompRender from '../../components/comp-render'
 export default function Editor() {
-  const { editorList } = useContext(EditorContext)
+  const { editorList, delComponent } = useContext(EditorContext)
   const [list, setList] = useState<RenderComponent[]>([])
   const [activeComp, setActiveComp] = useState<number>(-1)
   const changePosition = (dragIndex: number, hoverIndex: number) => {
@@ -38,9 +38,10 @@ export default function Editor() {
     setList(_list)
   }
   const deleteComponent = (index: number) => {
-    const _list = cloneDeep(list)
-    _list.splice(index, 1)
-    setList(_list)
+    // const _list = cloneDeep(list)
+    // _list.splice(index, 1)
+    // setList(_list)
+    delComponent?.(index)
   }
 
   return (
