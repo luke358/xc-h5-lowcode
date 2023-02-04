@@ -2,7 +2,6 @@ import React from 'react'
 import { Tabs } from 'antd'
 
 import components from './components'
-// import { components } from '../../../register'
 export default function LeftAside() {
   const tabs = Object.entries(components)
     .map(([name, component]) => {

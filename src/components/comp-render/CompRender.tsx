@@ -1,5 +1,5 @@
-import type { PropsWithChildren } from 'react'
 import React from 'react'
+import type { PropsWithChildren } from 'react'
 import classnames from 'classnames'
 import { Divider, Tooltip } from 'antd'
 import {
@@ -8,24 +8,22 @@ import {
   CopyOutlined,
   DeleteOutlined,
 } from '@ant-design/icons'
+import useEditor from 'src/store/useEditor'
 export default function CompRender(props: PropsWithChildren<{
-  data: RenderComponent
   index: number
-  changePosition: (a: number, b: number) => void
-  addComponent: (comp: RenderComponent) => void
-  onClick?: (index: number) => void
-  active: boolean
-  total: number
-  moveComponent: (index: number, type: string) => void
-  copy: (index: number) => void
-  deleteComponent: (index: number) => void
 }>) {
-  const { data, index, changePosition, onClick, active, total } = props
+  const { index } = props
+  const getTotal = useEditor(state => state.getTotal)
+  const move = useEditor(state => state.move)
+  const del = useEditor(state => state.del)
+  const copy = useEditor(state => state.copy)
+  const setActive = useEditor(state => state.setActive)
+  const active = useEditor(state => state.active)
 
   return (
-    <div onClick={() => { onClick && onClick(index) }} className={classnames('comp-render', { 'comp-render-focus': active })}>
+    <div onClick={() => { setActive(index) }} className={classnames('comp-render', { 'comp-render-focus': active === index })}>
       {props.children}
-      {active
+      {active === index
         ? <div className=" absolute top-0 right-0 translate-x-full px-[8px]">
           <ul>
             <li className="bg-white">
@@ -34,16 +32,22 @@ export default function CompRender(props: PropsWithChildren<{
                 placement="right">
                 <ArrowUpOutlined
                   className=" p-[8px]"
-                  onClick={() => props?.moveComponent(index, 'up')}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    move('up', index)
+                  }}
                 />
               </Tooltip>
               <Divider className="m-0" />
               <Tooltip title="下移"
-                className={classnames(index + 1 === total ? 'text-gray-400' : '')}
+                className={classnames(index + 1 === getTotal() ? 'text-gray-400' : '')}
                 placement="right">
                 <ArrowDownOutlined
                   className=" p-[8px]"
-                  onClick={() => props?.moveComponent(index, 'down')}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    move('down', index)
+                  }}
                 />
               </Tooltip>
             </li>
@@ -52,7 +56,11 @@ export default function CompRender(props: PropsWithChildren<{
               <li className="bg-white">
                 <CopyOutlined
                   className=" p-[8px]"
-                  onClick={() => props?.onClick?.(index + 1)} />
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    copy(index)
+                  }}
+                />
               </li>
             </Tooltip>
             <Tooltip title="删除"
@@ -60,7 +68,10 @@ export default function CompRender(props: PropsWithChildren<{
               <li className="bg-white">
                 <DeleteOutlined
                   className=" p-[8px]"
-                  onClick={() => props?.deleteComponent(index)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    del(index)
+                  }}
                 />
               </li>
             </Tooltip>

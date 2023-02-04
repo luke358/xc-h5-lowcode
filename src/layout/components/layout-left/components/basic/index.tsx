@@ -1,7 +1,6 @@
 import React from 'react'
-import DragList from '../../../../../components/drag-list'
-// import CompPreview from '../../../../../components/comp-preview'
-import { editorConfig } from '../../../../../register'
+import DragList from 'src/components/drag-list'
+import { editorConfig } from 'src/register'
 
 export default function Basic() {
   const baseWidgets = editorConfig.componentModules.baseWidgets
