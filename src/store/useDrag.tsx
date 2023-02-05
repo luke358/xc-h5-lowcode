@@ -17,8 +17,7 @@ const useDrag = create<Drag & DragActions>(() => ({
   onDragEnd: (result) => {
     const { source, destination, draggableId } = result
 
-    const editorList = useEditor.getState().editorList
-    const setEditorList = useEditor.getState().setEditorList
+    const add = useEditor.getState().add
     const reorder = useEditor.getState().reorder
     // dropped outside the list
     if (!destination)
@@ -26,10 +25,8 @@ const useDrag = create<Drag & DragActions>(() => ({
 
     if (destination.droppableId === 'COMPONENT') {
       if (source.droppableId !== 'COMPONENT') {
-        // 复制
-        const _editorList = cloneDeep(editorList)
-        _editorList.splice(destination.index, 0, { ...cloneDeep(editorConfig.componentMap[draggableId]), _id: nanoid() })
-        setEditorList(_editorList)
+        // 添加
+        add({ ...cloneDeep(editorConfig.componentMap[draggableId]), _id: nanoid() }, destination.index)
       }
       else {
         // 排序

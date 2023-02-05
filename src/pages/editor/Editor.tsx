@@ -1,10 +1,10 @@
 import React from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import CompRender from 'src/components/comp-render'
+import { editorConfig } from 'src/register'
 import useEditor from 'src/store/useEditor'
 export default function Editor() {
-  const editorList = useEditor(state => state.editorList)
-
+  const blocks = useEditor(state => state.editorData.blocks)
   return (
     <div className="flex justify-center min-h-full w-full">
       <Droppable droppableId="COMPONENT">
@@ -13,7 +13,7 @@ export default function Editor() {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {editorList?.map((d: RenderComponent, i) => {
+            {(blocks)?.map((d: RenderBlockData, i) => {
               return <Draggable key={d._id} draggableId={d._id!} index={i}>
                 {provided => (
                   <div
@@ -24,7 +24,8 @@ export default function Editor() {
                       key={d._id}
                       index={i}
                     >
-                      {d.render({ props: { type: 'default' } })}
+                      {editorConfig.componentMap[d.componentKey].render({ props: { type: 'default' } })}
+                      {/* {d.render({ props: { type: 'default' } })} */}
                     </CompRender>
                   </div>
 
