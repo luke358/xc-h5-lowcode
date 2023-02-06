@@ -29,6 +29,7 @@ interface EditorActions {
   setActive: (index: number) => void
   add: (item: RenderComponent, index: number) => void
   copy: (index: number) => void
+  update: (key: string | string[], value: any) => void
 }
 
 const useEditor = create<Editor & EditorActions>((set, get) => ({
@@ -61,7 +62,6 @@ const useEditor = create<Editor & EditorActions>((set, get) => ({
   add: (item: RenderComponent, index) => {
     const editorData = cloneDeep(get().editorData)
     const blocks = editorData.blocks
-    // blocks.splice(index, 0, { ...item, _id: nanoid() } as any)
     const block = createBlock(item)
 
     blocks.splice(index, 0, block)
@@ -73,6 +73,28 @@ const useEditor = create<Editor & EditorActions>((set, get) => ({
     const blocks = editorData.blocks
     const item = cloneDeep(blocks[index])
     blocks.splice(index, 0, { ...item, _id: nanoid() } as any)
+    set({ editorData })
+  },
+  update(key, value) {
+    const editorData = cloneDeep(get().editorData)
+    const index = get().active
+    const blocks = editorData.blocks
+    let block = blocks[index]
+
+    if (!Array.isArray(key))
+      key = [key]
+    const lastKey = key.pop()!
+
+    for (const k of key) {
+      // 数据保证一定存在，但是偶尔还是会报错，需要判断一下，但是会覆盖其他属性
+      // TODO:可能是zustand的bug，也可能写的又问题
+      if (!block[k])
+        block[k] = {}
+      block = block[k]
+    }
+
+    block[lastKey] = value
+
     set({ editorData })
   },
   setActive: (active) => {
@@ -100,7 +122,11 @@ function createBlock(component: RenderComponent): RenderBlockData {
       tempPadding: '0',
     },
     hasResize: false,
-    props: {},
+    props: Object.entries(component.props || {}).reduce((prev, [propName, propSchema]) => {
+      if (propSchema?.defaultValue)
+        prev[propName] = propSchema?.defaultValue
+      return prev
+    }, {} as Record<string, any>),
     draggable: component.draggable ?? true, // 是否可以拖拽
     showStyleConfig: component.showStyleConfig ?? true, // 是否显示组件样式配置
     animations: [], // 动画集

@@ -4,7 +4,9 @@ import CompRender from 'src/components/comp-render'
 import { editorComponent } from 'src/register'
 import useEditor from 'src/store/useEditor'
 export default function Editor() {
-  const blocks = useEditor(state => state.editorData.blocks)
+  const editorData = useEditor(state => state.editorData)
+  const blocks = editorData.blocks
+
   return (
     <div className="flex justify-center min-h-full w-full">
       <Droppable droppableId="COMPONENT">
@@ -24,8 +26,7 @@ export default function Editor() {
                       key={d._id}
                       index={i}
                     >
-                      {editorComponent.componentMap[d.componentKey].render({ props: { type: 'default' } })}
-                      {/* {d.render({ props: { type: 'default' } })} */}
+                      {editorComponent.componentMap[d.componentKey].render({ props: { type: 'default', ...d.props } })}
                     </CompRender>
                   </div>
 

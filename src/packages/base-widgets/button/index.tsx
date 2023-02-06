@@ -1,6 +1,7 @@
 import React from 'react'
 import type { ButtonProps } from 'antd-mobile'
 import { Button } from 'antd-mobile'
+import { createInputProp } from 'src/utils/editorConfig'
 
 export default {
   label: '按钮',
@@ -12,7 +13,7 @@ export default {
   preview: () => <Button>预览按钮</Button>,
   render: ({ props }: { props: ButtonProps & { text: string }; size: any }) => <Button type={props.type} size={props.size}>{props.text || '渲染按钮'}</Button>,
   props: {
-    // text: createInputProp('按钮内容'),
+    text: createInputProp('按钮内容', '按钮内容'),
     // type: createSelectProp('按钮类型', [
     //   { label: '基础', value: 'primary' },
     //   { label: '成功', value: 'success' },
