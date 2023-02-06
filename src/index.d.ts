@@ -35,7 +35,7 @@ interface RenderBlockData {
   _id: string
   /** 组件所属的模块（基础组件、容器组件） */
   moduleName: keyof ComponentModules
-  /** 映射 EditorConfig 中 componentMap 的 component对象 */
+  /** 映射 editorComponent 中 componentMap 的 component对象 */
   componentKey: string
   /** 组件标签名称 */
   label: string

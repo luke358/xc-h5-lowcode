@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import { nanoid } from 'nanoid'
 import type { OnDragEndResponder } from 'react-beautiful-dnd'
-import { editorConfig } from 'src/register'
+import { editorComponent } from 'src/register'
 import { create } from 'zustand'
 import useEditor from './useEditor'
 const initialStates = {}
@@ -26,7 +26,7 @@ const useDrag = create<Drag & DragActions>(() => ({
     if (destination.droppableId === 'COMPONENT') {
       if (source.droppableId !== 'COMPONENT') {
         // 添加
-        add({ ...cloneDeep(editorConfig.componentMap[draggableId]), _id: nanoid() }, destination.index)
+        add({ ...cloneDeep(editorComponent.componentMap[draggableId]), _id: nanoid() }, destination.index)
       }
       else {
         // 排序

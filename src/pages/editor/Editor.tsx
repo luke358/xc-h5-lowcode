@@ -1,7 +1,7 @@
 import React from 'react'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
 import CompRender from 'src/components/comp-render'
-import { editorConfig } from 'src/register'
+import { editorComponent } from 'src/register'
 import useEditor from 'src/store/useEditor'
 export default function Editor() {
   const blocks = useEditor(state => state.editorData.blocks)
@@ -24,7 +24,7 @@ export default function Editor() {
                       key={d._id}
                       index={i}
                     >
-                      {editorConfig.componentMap[d.componentKey].render({ props: { type: 'default' } })}
+                      {editorComponent.componentMap[d.componentKey].render({ props: { type: 'default' } })}
                       {/* {d.render({ props: { type: 'default' } })} */}
                     </CompRender>
                   </div>

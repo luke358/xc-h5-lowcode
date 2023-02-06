@@ -39,7 +39,6 @@ const useEditor = create<Editor & EditorActions>((set, get) => ({
     set({ editorData })
   },
   getTotal: () => get().editorData.blocks.length,
-  getBlockTotal: () => get().editorData.blocks.length,
   reorder: (startIndex, endIndex) => {
     const editorData = cloneDeep(get().editorData)
     const blocks = editorData.blocks

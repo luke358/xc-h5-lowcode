@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react'
  * @description 创建编辑器配置
  * @returns {} 返回编辑器注册组件的方法等
  */
-export function createEditorConfig() {
+export function createEditorComponent() {
   const componentModules: ComponentModules = {
     baseWidgets: [],
     // containerComponents: [],

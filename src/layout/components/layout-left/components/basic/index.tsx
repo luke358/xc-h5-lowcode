@@ -1,9 +1,9 @@
 import React from 'react'
 import DragList from 'src/components/drag-list'
-import { editorConfig } from 'src/register'
+import { editorComponent } from 'src/register'
 
 export default function Basic() {
-  const baseWidgets = editorConfig.componentModules.baseWidgets
+  const baseWidgets = editorComponent.componentModules.baseWidgets
 
   return (
     <div>
