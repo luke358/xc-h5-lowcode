@@ -1,6 +1,6 @@
-import { Input, Select } from 'antd'
-import FormItem from 'antd/es/form/FormItem'
 import React from 'react'
+import { Input, Select, Switch } from 'antd'
+import FormItem from 'antd/es/form/FormItem'
 
 interface PropsConfigProps {
   block: RenderBlockData
@@ -12,6 +12,7 @@ export default function PropsConfig(props: PropsConfigProps) {
 
   const renderItem = (key: string, value: any) => {
     let item = null
+    const formItemProps: any = {}
     switch (value.type) {
       case 'input':
         item = (
@@ -25,9 +26,14 @@ export default function PropsConfig(props: PropsConfigProps) {
           <Select mode={value.multiple ? 'multiple' : undefined} options={value.options} />
         )
         break
+      case 'switch':
+        formItemProps.valuePropName = 'checked'
+        item = (
+          <Switch />
+        )
     }
 
-    return <FormItem initialValue={blockProps[key]} name={`${block._id}-props-${key}`} key={`${block._id}-${key}`} label={value.label}>{item}</FormItem>
+    return <FormItem {...formItemProps} initialValue={blockProps[key]} name={`${block._id}-props-${key}`} key={`${block._id}-${key}`} label={value.label}>{item}</FormItem>
   }
   return <>{
     Object.entries(component.props || {}).map(([key, value]) => {

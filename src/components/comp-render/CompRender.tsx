@@ -25,7 +25,7 @@ export default function CompRender(props: PropsWithChildren<{
       {props.children}
       {active === index
         ? <div className=" absolute top-0 right-0 translate-x-full px-[8px]">
-          <ul>
+          <ul className="p-0 m-0 list-none">
             <li className="bg-white">
               <Tooltip title="上移"
                 className={classnames(index === 0 ? 'text-gray-400' : '')}
