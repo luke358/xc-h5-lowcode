@@ -34,6 +34,8 @@ export default function CompRender(props: PropsWithChildren<{
                   className=" p-[8px]"
                   onClick={(e) => {
                     e.stopPropagation()
+                    if (index === 0)
+                      return
                     move('up', index)
                   }}
                 />
@@ -46,6 +48,8 @@ export default function CompRender(props: PropsWithChildren<{
                   className=" p-[8px]"
                   onClick={(e) => {
                     e.stopPropagation()
+                    if (index + 1 === getTotal())
+                      return
                     move('down', index)
                   }}
                 />
