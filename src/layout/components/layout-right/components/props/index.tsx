@@ -17,7 +17,7 @@ export default function Props() {
     if (!currentBlock)
       return
     const component = editorComponent.componentMap[currentBlock.componentKey]
-    content.push(<FormItem label="组件ID">{currentBlock._id}</FormItem>)
+    content.push(<FormItem key={`${currentBlock._id}`} label="组件ID">{currentBlock._id}</FormItem>)
     if (component.props)
       content.push(<PropsConfig component={component} key={'props'} block={currentBlock} />)
 

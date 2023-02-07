@@ -11,7 +11,7 @@ export default {
     height: true,
   },
   preview: () => <Input placeholder="预览输入框" />,
-  render: ({ props, size }: { props: InputProps & { text: string }; size: any }) => <Input key={nanoid()} placeholder="请输入" />,
+  render: ({ props }: { props: InputProps }) => <Input {...props} key={nanoid()} placeholder="请输入" />,
   props: {
     // text: createInputProp('按钮内容'),
     // type: createSelectProp('按钮类型', [
