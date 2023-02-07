@@ -1,4 +1,5 @@
 import { Form } from 'antd'
+import FormItem from 'antd/es/form/FormItem'
 import React from 'react'
 import { editorComponent } from 'src/register'
 import useEditor from 'src/store/useEditor'
@@ -16,6 +17,7 @@ export default function Props() {
     if (!currentBlock)
       return
     const component = editorComponent.componentMap[currentBlock.componentKey]
+    content.push(<FormItem label="组件ID">{currentBlock._id}</FormItem>)
     if (component.props)
       content.push(<PropsConfig component={component} key={'props'} block={currentBlock} />)
 
@@ -29,6 +31,6 @@ export default function Props() {
 
         update(k, value)
       })
-    }} layout="vertical">{renderProps()}</Form>
+    }}>{renderProps()}</Form>
   )
 }
