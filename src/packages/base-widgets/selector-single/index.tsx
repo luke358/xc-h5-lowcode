@@ -2,7 +2,7 @@ import React from 'react'
 import type { SelectorOption, SelectorProps } from 'antd-mobile'
 import { Selector } from 'antd-mobile'
 import { nanoid } from 'nanoid'
-import { createSelectProp } from 'src/utils/editorConfig'
+import { createSelectProp, createSwitchProp } from 'src/utils/editorConfig'
 export const options = [
   {
     label: '选项一',
@@ -18,8 +18,8 @@ export const options = [
   },
 ]
 export default {
-  label: '选择框',
-  key: 'selector',
+  label: '选择框-单选',
+  key: 'selector-single',
   resize: {
     width: true,
     height: true,
@@ -29,6 +29,10 @@ export default {
   props: {
     // text: createInputProp('按钮内容'),
     defaultValue: createSelectProp('默认值', options, undefined),
+    disabled: createSwitchProp('禁止全局选中'),
+    showCheckMark: createSwitchProp('显示对勾角标', true),
+    // columns: createSelectProp('列数', 3, 3),
+
     // options:
     // size: createSelectProp('按钮尺寸', [
     //   { label: '默认', value: '' },

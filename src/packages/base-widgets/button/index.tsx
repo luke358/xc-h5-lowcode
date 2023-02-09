@@ -14,7 +14,8 @@ export default {
   render: ({ props }: { props: ButtonProps & { text: string }; size: any }) => <Button {...props}>{props.text || '渲染按钮'}</Button>,
   props: {
     text: createInputProp('按钮内容', '按钮内容'),
-    disabled: createSwitchProp('是否禁用按钮', false),
+    disabled: createSwitchProp('禁用按钮', false),
+    block: createSwitchProp('块级元素', false),
     color: createSelectProp('按钮类型', [
       { label: '默认', value: 'default' },
       { label: '基础', value: 'primary' },

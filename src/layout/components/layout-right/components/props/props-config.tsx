@@ -23,7 +23,7 @@ export default function PropsConfig(props: PropsConfigProps) {
         break
       case 'select':
         item = (
-          <Select mode={value.multiple ? 'multiple' : undefined} options={value.options} />
+          <Select mode={value.multiple ? 'multiple' : undefined} allowClear options={value.options} />
         )
         break
       case 'switch':
