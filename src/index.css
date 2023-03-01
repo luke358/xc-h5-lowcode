@@ -8,15 +8,3 @@ html, body {
 #root {
   height: 100%;
 }
-:root {
-  --adm-color-primary: #ff0064;
-}
-
-
-.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color:#ff0064;
-}
-
-.ant-tabs .ant-tabs-ink-bar {
-  background: #ff0064;
-}
