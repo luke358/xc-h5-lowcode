@@ -9,6 +9,7 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons'
 import useEditor from 'src/store/useEditor'
+import { CompRenderStyle } from './style'
 export default function CompRender(props: PropsWithChildren<{
   index: number
 }>) {
@@ -21,10 +22,11 @@ export default function CompRender(props: PropsWithChildren<{
   const active = useEditor(state => state.active)
 
   return (
-    <div onClick={() => { setActive(index) }} className={classnames('comp-render', { 'comp-render-focus': active === index })}>
+    <CompRenderStyle onClick={() => { setActive(index) }} active={active === index}>
+    {/* <div onClick={() => { setActive(index) }} className={classnames('comp-render', { 'comp-render-focus': active === index })}> */}
       {props.children}
       {active === index
-        ? <div className=" absolute top-0 right-0 translate-x-full px-[8px]">
+        ? <div className="absolute top-0 right-0 translate-x-full px-[8px]">
           <ul className="p-0 m-0 list-none">
             <li className="bg-white">
               <Tooltip title="上移"
@@ -83,6 +85,7 @@ export default function CompRender(props: PropsWithChildren<{
         </div>
         : null
       }
-    </div>
+    {/* </div> */}
+    </CompRenderStyle>
   )
 }
