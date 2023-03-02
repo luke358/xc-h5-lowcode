@@ -13,6 +13,8 @@ interface EditorData {
   blocks: RenderBlockData[]
 }
 const defaultEditorData = (): EditorData => ({ title: '默认页面', path: `/${nanoid()}`, blocks: [] })
+// test data
+// const defaultEditorData = (): EditorData => ({ title: '默认页面', path: '/xNVjHLiykQqHKbbWStmiP', blocks: [{ _id: 'iYnwoQeQULZ5PfyIIpTQe', moduleName: 'baseWidgets', componentKey: 'input', label: '输入框', adjustPosition: true, focus: false, styles: { display: 'flex', justifyContent: 'flex-start', paddingTop: '0', paddingRight: '0', paddingLeft: '0', paddingBottom: '0', tempPadding: '0' }, hasResize: false, props: {}, draggable: true, showStyleConfig: true, animations: [], actions: [], events: [], model: {} }, { _id: '7ikPKVNW1mPvz1JpFyXko', moduleName: 'baseWidgets', componentKey: 'selector-single', label: '选择框-单选', adjustPosition: true, focus: false, styles: { display: 'flex', justifyContent: 'flex-start', paddingTop: '0', paddingRight: '0', paddingLeft: '0', paddingBottom: '0', tempPadding: '0' }, hasResize: false, props: { showCheckMark: true }, draggable: true, showStyleConfig: true, animations: [], actions: [], events: [], model: {} }] })
 const initialStates = {
   active: -1,
   editorData: defaultEditorData(),

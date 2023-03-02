@@ -6,7 +6,7 @@ import useEditor from 'src/store/useEditor'
 export default function Editor() {
   const editorData = useEditor(state => state.editorData)
   const blocks = editorData.blocks
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null)
   const [contanierPos, setContanierPos] = useState({ x: 0, y: 0 })
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, move: false })
 
@@ -19,46 +19,41 @@ export default function Editor() {
           y: e.clientY,
         })
       }
-    };
-  }, []);
+    }
+  }, [])
 
   const mousemovefn = useMemo(() => {
     return (e: React.MouseEvent<HTMLDivElement>) => {
-      e.preventDefault();
+      e.preventDefault()
       if (mousePos.move) {
-        let diffx: number;
-        let diffy: number;
-        const newX = e.clientX;
-        const newY = e.clientY;
-        diffx = newX - mousePos.x;
-        diffy = newY - mousePos.y;
+        const newX = e.clientX
+        const newY = e.clientY
+        const diffx = newX - mousePos.x
+        const diffy = newY - mousePos.y
         setMousePos({
           x: newX,
           y: newY,
-          move: true
-        });
+          move: true,
+        })
         setContanierPos(prev => ({ x: prev.x + diffx, y: prev.y + diffy }))
       }
-    };
-  }, [mousePos.x, mousePos.y, mousePos.move]);
+    }
+  }, [mousePos.x, mousePos.y, mousePos.move])
 
   const mouseupfn = useMemo(() => {
     return () => {
-      console.log('leave');
-
       setMousePos({ x: 0, y: 0, move: false })
-    };
-  }, []);
+    }
+  }, [])
 
   const onwheelFn = useMemo(() => {
     return (e: React.WheelEvent<HTMLDivElement>) => {
       setContanierPos(prev => ({
         x: prev.x,
         y: prev.y + (e.deltaY < 0 ? 10 : -10),
-      }));
-    };
-  }, []);
-  console.log(contanierPos);
+      }))
+    }
+  }, [])
 
   return (
     <div className="flex justify-center min-h-full w-full overflow-hidden"
@@ -72,26 +67,26 @@ export default function Editor() {
       <Droppable droppableId="COMPONENT">
         {provided => (
           <div className="w-[350px] bg-white relative shadow-lg"
-            style={{ transform: `translateX(${contanierPos.x}px) translateY(${contanierPos.y}px)` }}
+            // fixd: https://github.com/atlassian/react-beautiful-dnd/issues/128
+            style={{ top: `${contanierPos.y}px`, left: `${contanierPos.x}px` }}
+            // style={{ transform: `translateX(${contanierPos.x}px) translateY(${contanierPos.y}px)` }}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
             {(blocks)?.map((d: RenderBlockData, i) => {
               return <Draggable key={d._id} draggableId={d._id!} index={i}>
-                {provided => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}>
-                    <CompRender
-                      key={d._id}
-                      index={i}
-                    >
-                      {editorComponent.componentMap[d.componentKey].render({ props: d.props })}
-                    </CompRender>
-                  </div>
-
-                )}
+                {provided => (<div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                >
+                  <CompRender
+                    key={d._id}
+                    index={i}
+                  >
+                    {editorComponent.componentMap[d.componentKey].render({ props: d.props })}
+                  </CompRender>
+                </div>)}
               </Draggable>
             })}
             {provided.placeholder}

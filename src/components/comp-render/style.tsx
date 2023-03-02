@@ -1,4 +1,4 @@
-import { GlobalToken } from 'antd';
+import type { GlobalToken } from 'antd'
 import styled from 'styled-components'
 
 export interface CompRenderStyleProps {
@@ -16,7 +16,7 @@ export const CompRenderStyle = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    border: ${(p: CompRenderStyleProps) =>  p.active ? `1px dashed ${p.theme.colorPrimary}` : 'none'
+    border: ${(p: CompRenderStyleProps) => p.active ? `1px dashed ${p.theme.colorPrimary}` : 'none'
     };
   }
 `
