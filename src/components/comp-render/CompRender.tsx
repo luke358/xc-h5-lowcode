@@ -9,7 +9,7 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons'
 import useEditor from 'src/store/useEditor'
-import { CompRenderStyle } from './style'
+import { CompRenderStyle } from './styled'
 export default function CompRender(props: PropsWithChildren<{
   index: number
 }>) {
