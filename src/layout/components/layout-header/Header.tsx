@@ -1,18 +1,23 @@
-import { CopyOutlined, DeleteOutlined, DownloadOutlined, PlayCircleOutlined, RedoOutlined, UndoOutlined, UploadOutlined } from '@ant-design/icons'
-import { Avatar, Button, Form, Popover, Select, Space, theme } from 'antd'
-import type { AliasToken } from 'antd/es/theme/internal'
 import React, { useState } from 'react'
+import { DeleteOutlined, DownloadOutlined, PlayCircleOutlined, RedoOutlined, UndoOutlined, UploadOutlined } from '@ant-design/icons'
+import { Avatar, Button, Form, Popover, Select, Space, message, theme } from 'antd'
+import type { AliasToken } from 'antd/es/theme/internal'
 import { HexColorPicker } from 'react-colorful'
 import useTheme from 'src/store/useTheme'
 import { useLocalStorageState } from 'ahooks'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
+import useEditor, { useTemporalStore } from 'src/store/useEditor'
 import { ControlItem, HeaderControl, HeaderExtra, HeaderLogo, HeaderWrap, ScrollForm } from './styled'
 const { useToken } = theme
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const editorData = useEditor(state => state.editorData)
   const changeTheme = useTheme(state => state.changeTheme)
   const [localTheme, changeLocalTheme] = useLocalStorageState<any>('theme')
 
+  const { undo, redo } = useTemporalStore(state => state)
+  const clear = useEditor(state => state.clear)
   const { token } = useToken()
   const [color, setColor] = useState(token.colorPrimary)
 
@@ -41,31 +46,34 @@ export default function Header() {
 
         <ControlItem>
           <Popover placement="bottom" content={'导出json'}>
-            <DownloadOutlined />
+            <CopyToClipboard text={JSON.stringify(editorData, null, 2)}
+              onCopy={() => message.success('已复制到剪贴板')}>
+              <DownloadOutlined />
+            </CopyToClipboard>
           </Popover>
         </ControlItem>
 
-        <ControlItem>
+        {/* <ControlItem>
           <Popover placement="bottom" content={'导出json'}>
             <CopyOutlined />
           </Popover>
-        </ControlItem>
+        </ControlItem> */}
 
         <ControlItem>
           <Popover placement="bottom" content={'撤销'}>
-            <UndoOutlined />
+            <UndoOutlined onClick={() => undo()} />
           </Popover>
         </ControlItem>
 
         <ControlItem>
           <Popover placement="bottom" content={'重做'}>
-            <RedoOutlined />
+            <RedoOutlined onClick={() => redo()} />
           </Popover>
         </ControlItem>
 
         <ControlItem>
           <Popover placement="bottom" content={'清空'}>
-            <DeleteOutlined />
+            <DeleteOutlined onClick={() => clear()} />
           </Popover>
         </ControlItem>
 

@@ -1,6 +1,8 @@
 import { cloneDeep } from 'lodash-es'
 import { nanoid } from 'nanoid'
-import { create } from 'zustand'
+import { create, useStore } from 'zustand'
+import type { TemporalState } from 'zundo'
+import { temporal } from 'zundo'
 
 interface EditorData {
   /** 页面标题 */
@@ -32,14 +34,18 @@ interface EditorActions {
   add: (item: RenderComponent, index: number) => void
   copy: (index: number) => void
   update: (key: string | string[], value: any) => void
+  clear: () => void
 }
 
-const useEditor = create<Editor & EditorActions>((set, get) => ({
-  ...initialStates,
+const useEditor = create(temporal<Editor & EditorActions>((set, get) => ({
+  ...cloneDeep(initialStates),
   setBlocks: (blocks) => {
     const editorData = cloneDeep(get().editorData)
     editorData.blocks = blocks
     set({ editorData })
+  },
+  clear: () => {
+    set(cloneDeep(initialStates))
   },
   getTotal: () => get().editorData.blocks.length,
   reorder: (startIndex, endIndex) => {
@@ -102,7 +108,13 @@ const useEditor = create<Editor & EditorActions>((set, get) => ({
   setActive: (active) => {
     set({ active })
   },
-}))
+})))
+
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+export const useTemporalStore = <T extends unknown>(
+  selector: (state: TemporalState<Editor & EditorActions>) => T,
+  equality?: (a: T, b: T) => boolean,
+) => useStore(useEditor.temporal, selector, equality)
 
 export default useEditor
 
