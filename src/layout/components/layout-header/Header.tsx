@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { DeleteOutlined, DownloadOutlined, PlayCircleOutlined, RedoOutlined, UndoOutlined, UploadOutlined } from '@ant-design/icons'
+import { DeleteOutlined, DownloadOutlined, PlayCircleOutlined, QrcodeOutlined, RedoOutlined, UndoOutlined, UploadOutlined } from '@ant-design/icons'
+import type { ThemeConfig } from 'antd'
 import { Avatar, Button, Form, Popover, Select, Space, message, theme } from 'antd'
-import type { AliasToken } from 'antd/es/theme/internal'
 import { HexColorPicker } from 'react-colorful'
 import useTheme from 'src/store/useTheme'
 import { useLocalStorageState } from 'ahooks'
@@ -14,17 +14,16 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const editorData = useEditor(state => state.editorData)
   const changeTheme = useTheme(state => state.changeTheme)
-  const [localTheme, changeLocalTheme] = useLocalStorageState<any>('theme')
+  const [localTheme, changeLocalTheme] = useLocalStorageState<ThemeConfig>('theme')
 
   const { undo, redo } = useTemporalStore(state => state)
   const clear = useEditor(state => state.clear)
   const { token } = useToken()
-  const [color, setColor] = useState(token.colorPrimary)
 
   const onChange = (newColor: string) => {
-    setColor(newColor)
-    changeTheme({ colorPrimary: newColor } as AliasToken)
-    changeLocalTheme({ ...localTheme, colorPrimary: newColor })
+    const theme = { token: { colorPrimary: newColor } }
+    changeTheme(theme)
+    changeLocalTheme({ ...localTheme, ...theme })
   }
   const hide = () => {
     setOpen(false)
@@ -51,6 +50,10 @@ export default function Header() {
               <DownloadOutlined />
             </CopyToClipboard>
           </Popover>
+        </ControlItem>
+
+        <ControlItem>
+          <QrcodeOutlined />
         </ControlItem>
 
         {/* <ControlItem>
@@ -150,8 +153,8 @@ export default function Header() {
           >
             <Button type="primary" ghost>页面设置</Button>
           </Popover>
-          <Popover content={<HexColorPicker color={color} onChange={onChange} />}>
-            <Avatar className="cursor-pointer" style={{ backgroundColor: color }}>主题</Avatar>
+          <Popover content={<HexColorPicker color={token.colorPrimary} onChange={onChange} />}>
+            <Avatar className="cursor-pointer" style={{ backgroundColor: token.colorPrimary }}>主题</Avatar>
           </Popover>
           <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"></Avatar>
         </Space>

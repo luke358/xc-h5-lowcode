@@ -24,6 +24,9 @@ export const ControlItem = styled.div`
   width: 80px;
   float: left;
   text-align: center;
+  > span {
+    cursor: pointer;
+  }
   // color: ${p => p.theme.colorPrimary}
 `
 export const HeaderExtra = styled.div`

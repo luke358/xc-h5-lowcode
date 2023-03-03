@@ -1,20 +1,20 @@
-import type { AliasToken } from 'antd/es/theme/internal'
+import type { ThemeConfig } from 'antd'
 import { create } from 'zustand'
 
 interface Theme {
-  token?: AliasToken
+  theme?: ThemeConfig
 }
 
 const initialStates: Theme = {}
 
 interface ThemeActions {
-  changeTheme: (token: AliasToken) => void
+  changeTheme: (token: ThemeConfig) => void
 }
 
 const useTheme = create<Theme & ThemeActions>(set => ({
   ...initialStates,
-  changeTheme: (token: AliasToken) => {
-    set({ token })
+  changeTheme: (theme) => {
+    set({ theme })
   },
 }))
 
