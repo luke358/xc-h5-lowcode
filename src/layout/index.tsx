@@ -20,7 +20,7 @@ export default function index() {
             <Sider width={380} theme="light" className=" pt-[15px]">
               <LayoutLeft />
             </Sider>
-            <Content className=" pt-[15px]">
+            <Content>
               <LayoutMain />
             </Content>
             <Sider width={380} theme="light" className="shadow-md">

@@ -56,7 +56,7 @@ export default function Editor() {
   }, [])
 
   return (
-    <div className="flex justify-center min-h-full w-full overflow-hidden"
+    <div className="flex justify-center min-h-full w-full overflow-hidden pt-[15px]"
       ref={containerRef}
       onMouseDown={mousedownfn}
       onMouseMove={mousemovefn}

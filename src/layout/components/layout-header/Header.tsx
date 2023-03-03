@@ -38,22 +38,27 @@ export default function Header() {
       <HeaderLogo>logo</HeaderLogo>
       <HeaderControl>
         <ControlItem>
-          <Popover placement="bottom" content={'导入json'}>
+          <div>
             <UploadOutlined />
-          </Popover>
+            <div>导入JSON</div>
+          </div>
         </ControlItem>
 
         <ControlItem>
-          <Popover placement="bottom" content={'导出json'}>
-            <CopyToClipboard text={JSON.stringify(editorData, null, 2)}
-              onCopy={() => message.success('已复制到剪贴板')}>
+          <CopyToClipboard text={JSON.stringify(editorData, null, 2)}
+            onCopy={() => message.success('已复制到剪贴板')}>
+            <div>
               <DownloadOutlined />
-            </CopyToClipboard>
-          </Popover>
+              <div>导出JSON</div>
+            </div>
+          </CopyToClipboard>
         </ControlItem>
 
         <ControlItem>
-          <QrcodeOutlined />
+          <div>
+            <QrcodeOutlined />
+            <div>真机预览</div>
+          </div>
         </ControlItem>
 
         {/* <ControlItem>
@@ -63,27 +68,32 @@ export default function Header() {
         </ControlItem> */}
 
         <ControlItem>
-          <Popover placement="bottom" content={'撤销'}>
-            <UndoOutlined onClick={() => undo()} />
-          </Popover>
+          <div onClick={() => undo()}>
+            <UndoOutlined />
+            <div>撤销</div>
+          </div>
+
         </ControlItem>
 
         <ControlItem>
-          <Popover placement="bottom" content={'重做'}>
-            <RedoOutlined onClick={() => redo()} />
-          </Popover>
+          <div onClick={() => redo()}>
+            <RedoOutlined />
+            <div>重做</div>
+          </div>
         </ControlItem>
 
         <ControlItem>
-          <Popover placement="bottom" content={'清空'}>
-            <DeleteOutlined onClick={() => clear()} />
-          </Popover>
+          <div onClick={() => clear()}>
+            <DeleteOutlined />
+            <div>清空</div>
+          </div>
         </ControlItem>
 
         <ControlItem>
-          <Popover placement="bottom" content={'预览'}>
+          <div>
             <PlayCircleOutlined />
-          </Popover>
+            <div>预览</div>
+          </div>
         </ControlItem>
 
       </HeaderControl>
