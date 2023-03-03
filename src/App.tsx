@@ -1,15 +1,22 @@
 import { useRoutes } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import { ConfigProvider, theme } from 'antd'
+import { useLocalStorageState } from 'ahooks'
 import routes from './router'
-import { ThemeProvider } from "styled-components";
-import { theme } from "antd";
+import useTheme from './store/useTheme'
 
 function App() {
-  const { token } = theme.useToken();
+  const { token } = theme.useToken()
+  const [localTheme] = useLocalStorageState<any>('theme')
+
+  const themeVal = useTheme(state => ({ token: state.token || localTheme || token }))
 
   return (
-    <ThemeProvider theme={token}>
+    <ConfigProvider theme={themeVal}>
+    <ThemeProvider theme={themeVal}>
       {useRoutes(routes)}
     </ThemeProvider>
+    </ConfigProvider>
   )
 }
 

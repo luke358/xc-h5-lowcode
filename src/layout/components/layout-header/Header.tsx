@@ -1,11 +1,26 @@
 import { CopyOutlined, DeleteOutlined, DownloadOutlined, PlayCircleOutlined, RedoOutlined, UndoOutlined, UploadOutlined } from '@ant-design/icons'
 import { Avatar, Button, Form, Popover, Select, Space, theme } from 'antd'
+import type { AliasToken } from 'antd/es/theme/internal'
 import React, { useState } from 'react'
+import { HexColorPicker } from 'react-colorful'
+import useTheme from 'src/store/useTheme'
+import { useLocalStorageState } from 'ahooks'
+
 import { ControlItem, HeaderControl, HeaderExtra, HeaderLogo, HeaderWrap, ScrollForm } from './styled'
 const { useToken } = theme
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const changeTheme = useTheme(state => state.changeTheme)
+  const [localTheme, changeLocalTheme] = useLocalStorageState<any>('theme')
+
   const { token } = useToken()
+  const [color, setColor] = useState(token.colorPrimary)
+
+  const onChange = (newColor: string) => {
+    setColor(newColor)
+    changeTheme({ colorPrimary: newColor } as AliasToken)
+    changeLocalTheme({ ...localTheme, colorPrimary: newColor })
+  }
   const hide = () => {
     setOpen(false)
   }
@@ -13,6 +28,7 @@ export default function Header() {
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen)
   }
+
   return (
     <HeaderWrap>
       <HeaderLogo>logo</HeaderLogo>
@@ -126,8 +142,10 @@ export default function Header() {
           >
             <Button type="primary" ghost>页面设置</Button>
           </Popover>
+          <Popover content={<HexColorPicker color={color} onChange={onChange} />}>
+            <Avatar className="cursor-pointer" style={{ backgroundColor: color }}>主题</Avatar>
+          </Popover>
           <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"></Avatar>
-          <Avatar className="cursor-pointer" style={{ backgroundColor: token.colorPrimary }}>主题</Avatar>
         </Space>
       </HeaderExtra>
     </HeaderWrap>
