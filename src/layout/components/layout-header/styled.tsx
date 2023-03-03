@@ -12,13 +12,13 @@ export const HeaderWrap = styled.div`
 `
 
 export const HeaderLogo = styled.div`
+  min-width: 250px;
 `
 export const HeaderControl = styled.div`
   font-size: 16px;
   flex: 1;
   display: flex;
   justify-content: center;
-
 `
 export const ControlItem = styled.div`
   width: 80px;
@@ -27,7 +27,7 @@ export const ControlItem = styled.div`
   // color: ${p => p.theme.colorPrimary}
 `
 export const HeaderExtra = styled.div`
-  min-width: 200px;
+  min-width: 250px;
 `
 
 export const ScrollForm = tw(Form)`
