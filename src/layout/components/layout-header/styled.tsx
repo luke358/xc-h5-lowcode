@@ -31,7 +31,6 @@ export const HeaderExtra = styled.div`
 `
 
 export const ScrollForm = tw(Form)`
- overflow: scroll;
- @apply w-72 h-[450px] box-border;
+ @apply w-72 h-[450px] box-border overflow-scroll
  `
 

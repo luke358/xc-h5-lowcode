@@ -1,11 +1,11 @@
 import { CopyOutlined, DeleteOutlined, DownloadOutlined, PlayCircleOutlined, RedoOutlined, UndoOutlined, UploadOutlined } from '@ant-design/icons'
-import { Avatar, Button, Form, Popover, Select, Space } from 'antd'
+import { Avatar, Button, Form, Popover, Select, Space, theme } from 'antd'
 import React, { useState } from 'react'
 import { ControlItem, HeaderControl, HeaderExtra, HeaderLogo, HeaderWrap, ScrollForm } from './styled'
-
+const { useToken } = theme
 export default function Header() {
   const [open, setOpen] = useState(false)
-
+  const { token } = useToken()
   const hide = () => {
     setOpen(false)
   }
@@ -116,8 +116,8 @@ export default function Header() {
                   </Select>
                 </Form.Item>
               </div>
-              <Form.Item className=" center absolute bottom-0 w-72 mb-4">
-                <Button className="w-full" type="primary">保存</Button>
+              <Form.Item className=" center absolute bottom-0 w-72 mb-2">
+                <Button block type="primary" onClick={hide}>保存</Button>
               </Form.Item>
             </ScrollForm>}
             trigger="click"
@@ -127,6 +127,7 @@ export default function Header() {
             <Button type="primary" ghost>页面设置</Button>
           </Popover>
           <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"></Avatar>
+          <Avatar className="cursor-pointer" style={{ backgroundColor: token.colorPrimary }}>主题</Avatar>
         </Space>
       </HeaderExtra>
     </HeaderWrap>
