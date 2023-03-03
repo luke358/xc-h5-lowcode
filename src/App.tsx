@@ -13,7 +13,7 @@ function App() {
 
   return (
     <ConfigProvider theme={themeVal}>
-    <ThemeProvider theme={themeVal}>
+    <ThemeProvider theme={token}>
       {useRoutes(routes)}
     </ThemeProvider>
     </ConfigProvider>
