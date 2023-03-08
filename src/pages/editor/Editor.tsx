@@ -12,7 +12,6 @@ export default function Editor() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   return (
-    // <RGLWrap>
     <div className="flex justify-center min-h-full w-full pt-[15px] relative"
       ref={containerRef}
     >
@@ -44,6 +43,5 @@ export default function Editor() {
         )}
       </Droppable>
     </div>
-    // </RGLWrap>
   )
 }
