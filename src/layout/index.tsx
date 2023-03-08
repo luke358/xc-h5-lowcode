@@ -17,13 +17,13 @@ export default function index() {
             <LayoutHeader />
           </Header>
           <Layout style={{ height: 'cale(100%) - 60px' }}>
-            <Sider width={380} theme="light" className=" pt-[15px]">
+            <Sider width={380} theme="light" className=" pt-[15px] overflow-y-auto">
               <LayoutLeft />
             </Sider>
-            <Content>
+            <Content className="overflow-hidden">
               <LayoutMain />
             </Content>
-            <Sider width={380} theme="light" className="shadow-md">
+            <Sider width={380} theme="light" className="shadow-md overflow-y-auto" >
               <LayoutRight />
             </Sider>
           </Layout>

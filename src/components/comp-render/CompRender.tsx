@@ -1,31 +1,30 @@
 import React from 'react'
 import type { PropsWithChildren } from 'react'
-import classnames from 'classnames'
-import { Divider, Tooltip } from 'antd'
-import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
-  CopyOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons'
+// import classnames from 'classnames'
+// import { Divider, Tooltip } from 'antd'
+// import {
+//   ArrowDownOutlined,
+//   ArrowUpOutlined,
+//   CopyOutlined,
+//   DeleteOutlined,
+// } from '@ant-design/icons'
 import useEditor from 'src/store/useEditor'
 import { CompRenderStyle } from './styled'
 export default function CompRender(props: PropsWithChildren<{
   index: number
 }>) {
   const { index } = props
-  const getTotal = useEditor(state => state.getTotal)
-  const move = useEditor(state => state.move)
-  const del = useEditor(state => state.del)
-  const copy = useEditor(state => state.copy)
+  // const getTotal = useEditor(state => state.getTotal)
+  // const move = useEditor(state => state.move)
+  // const del = useEditor(state => state.del)
+  // const copy = useEditor(state => state.copy)
   const setActive = useEditor(state => state.setActive)
   const active = useEditor(state => state.active)
 
   return (
     <CompRenderStyle onClick={() => { setActive(index) }} active={active === index}>
-    {/* <div onClick={() => { setActive(index) }} className={classnames('comp-render', { 'comp-render-focus': active === index })}> */}
       {props.children}
-      {active === index
+      {/* {active === index
         ? <div className="absolute top-0 right-0 translate-x-full px-[8px]">
           <ul className="p-0 m-0 list-none">
             <li className="bg-white">
@@ -84,7 +83,7 @@ export default function CompRender(props: PropsWithChildren<{
           </ul>
         </div>
         : null
-      }
+      } */}
     {/* </div> */}
     </CompRenderStyle>
   )
