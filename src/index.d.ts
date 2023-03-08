@@ -64,6 +64,7 @@ interface RenderBlockData {
   /** 组件事件集合 */
   events: { label: string; value: string }[]
   [prop: string]: any
+  pos: any
 }
 // 组件模块
 interface ComponentModules {

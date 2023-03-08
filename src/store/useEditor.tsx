@@ -119,8 +119,9 @@ export const useTemporalStore = <T extends unknown>(
 export default useEditor
 
 function createBlock(component: RenderComponent): RenderBlockData {
+  const _id = nanoid()
   return {
-    _id: nanoid(),
+    _id,
     moduleName: component.moduleName,
     componentKey: component!.key,
     label: component!.label,
@@ -147,5 +148,12 @@ function createBlock(component: RenderComponent): RenderBlockData {
     actions: [], // 动作集合
     events: component.events || [], // 事件集合
     model: {},
+    pos: {
+      i: _id,
+      x: 0,
+      y: Infinity, // puts it at the bottom
+      w: 24,
+      h: 24,
+    },
   }
 }
