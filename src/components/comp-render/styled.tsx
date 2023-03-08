@@ -8,6 +8,9 @@ export interface CompRenderStyleProps {
 export const CompRenderStyle = styled.div`
   position: relative;
   cursor: move;
+  width: 100%;
+  height: 100%;
+  display: flex;
   
   &::after {
     content: '';
@@ -16,6 +19,11 @@ export const CompRenderStyle = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    border: ${(p: CompRenderStyleProps) => p.active ? `1px dashed ${p.theme.colorPrimary}` : 'none'};
+    border: ${(p: CompRenderStyleProps) => p.active ? `1px dotted ${p.theme.colorPrimary}` : 'none'};
+  }
+
+  &:hover::after {
+    border: ${(p: CompRenderStyleProps) => `1px dotted ${p.theme.colorPrimary}`};
+
   }
 `
