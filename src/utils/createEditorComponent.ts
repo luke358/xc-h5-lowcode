@@ -15,7 +15,7 @@ export function createEditorComponent() {
     componentModules,
     componentMap,
     registry: <
-      Props extends Record<string, VisualEditorProps> = {},
+      Props extends Record<string, any> = {},
       Model extends Record<string, string> = {},
     >(
       moduleName: keyof ComponentModules,
@@ -29,13 +29,13 @@ export function createEditorComponent() {
           styles: CSSProperties
           block: RenderBlockData
           custom: Record<string, any>
-        }) => () => JSX.Element
+        }) => JSX.Element
         props?: Props
         model?: Model
         styles?: CSSProperties
       },
     ) => {
-      const comp = { ...component, key, moduleName }
+      const comp = { ...component, key, moduleName } as RenderComponent
       componentModules[moduleName].push(comp)
       componentMap[key] = comp
     },

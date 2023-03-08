@@ -1,5 +1,5 @@
 import React from 'react'
-import type { SelectorOption, SelectorProps } from 'antd-mobile'
+import type { SelectorProps } from 'antd-mobile'
 import { Selector } from 'antd-mobile'
 import { nanoid } from 'nanoid'
 import { createSelectProp, createSwitchProp } from 'src/utils/editorConfig'
@@ -25,7 +25,7 @@ export default {
     height: true,
   },
   preview: () => <Selector options={options} />,
-  render: ({ props }: { props: SelectorProps<string> & { options: SelectorOption<string>[] } }) => <Selector options={options} {...props} key={nanoid()} />,
+  render: ({ props }: { props: Omit<SelectorProps<string>, 'options'> }) => <Selector options={options} {...props} key={nanoid()} />,
   props: {
     // text: createInputProp('按钮内容'),
     defaultValue: createSelectProp('默认值', options, undefined),

@@ -47,7 +47,6 @@
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.13",
-    "chalk": "^5.2.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.35.0",
@@ -61,6 +60,7 @@
     "vite": "^4.1.4"
   },
   "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged && pnpm check",
     "commit-msg": "node scripts/verifyCommit.js"
   },
   "lint-staged": {
