@@ -20,7 +20,7 @@ export default function index() {
             <Sider width={380} theme="light" className=" pt-[15px] overflow-y-auto">
               <LayoutLeft />
             </Sider>
-            <Content className="overflow-hidden">
+            <Content className="overflow-y-scroll">
               <LayoutMain />
             </Content>
             <Sider width={380} theme="light" className="shadow-md overflow-y-auto" >

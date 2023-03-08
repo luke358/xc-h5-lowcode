@@ -13,7 +13,7 @@ export default function Editor() {
 
   return (
     // <RGLWrap>
-    <div className="flex justify-center min-h-full w-full overflow-hidden pt-[15px] relative"
+    <div className="flex justify-center min-h-full w-full pt-[15px] relative"
       ref={containerRef}
     >
       <Droppable droppableId="COMPONENT">
