@@ -99,7 +99,7 @@ type EditorProps = {
   /** 表单域标签的位置 */
   labelPosition?: string
   /** 表单项默认值 */
-  defaultValue?: any
+  default?: ReactNode
 } & {
   /** 可选项 */
   options?: VisualEditorSelectOptions

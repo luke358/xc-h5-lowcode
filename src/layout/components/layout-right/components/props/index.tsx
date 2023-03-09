@@ -1,4 +1,5 @@
 import { Empty, Form } from 'antd'
+import { useForm } from 'antd/es/form/Form'
 import FormItem from 'antd/es/form/FormItem'
 import React from 'react'
 import { editorComponent } from 'src/register'
@@ -10,6 +11,7 @@ export default function Props() {
   const blocks = useEditor(state => state.editorData.blocks)
   const update = useEditor(state => state.update)
   const currentBlock = blocks[active]
+  const [form] = useForm()
 
   const renderProps = () => {
     const content = []
@@ -24,8 +26,8 @@ export default function Props() {
     return content
   }
   return (
-    <Form onValuesChange={(changedValues) => {
-      Object.entries(changedValues).forEach(([key, value]) => {
+    <Form form={form} onValuesChange={(changedValues, values) => {
+      Object.entries(values).forEach(([key, value]) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_id, ...k] = key.split('-')
 

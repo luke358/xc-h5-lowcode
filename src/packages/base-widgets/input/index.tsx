@@ -11,23 +11,45 @@ export default {
     width: true,
     height: true,
   },
-  preview: () => <Input placeholder="预览输入框" />,
-  render: ({ props }: { props: InputProps }) => <Input {...props} key={nanoid()} placeholder="请输入" />,
+  render: ({ props }: { props: InputProps }) => <Input {...props} key={nanoid()} />,
   props: {
-    value: createInputProp('默认值', ''),
-    // type: createSelectProp('按钮类型', [
-    //   { label: '基础', value: 'primary' },
-    //   { label: '成功', value: 'success' },
-    //   { label: '警告', value: 'warning' },
-    //   { label: '危险', value: 'danger' },
-    //   { label: '文本', value: 'text' },
-    // ]),
-    // size: createSelectProp('按钮尺寸', [
-    //   { label: '默认', value: '' },
-    //   { label: '中等', value: 'medium' },
-    //   { label: '小', value: 'small' },
-    //   { label: '极小', value: 'mini' },
-    // ]),
+    defaultValue: {
+      type: 'input',
+      label: '默认值',
+      default: '',
+    },
+    placeholder: {
+      type: 'input',
+      label: '提示文本',
+      default: '请输入',
+    },
+    readOnly: {
+      type: 'switch',
+      label: '是否只读',
+      default: false,
+    },
+    type: {
+      type: 'select',
+      label: '输入框类型',
+      default: 'text',
+      options: [
+        {
+          label: '文字', value: 'text',
+        }, {
+          label: '密码', value: 'password',
+        }, {
+          label: '数字', value: 'number',
+        },
+      ],
+    },
+    max: {
+      type: 'inputNumber',
+      label: '最大值',
+    },
+    min: {
+      type: 'inputNumber',
+      label: '最小值',
+    },
   },
 }
 

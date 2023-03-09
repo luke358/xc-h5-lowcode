@@ -27,6 +27,7 @@ type Editor = typeof initialStates
 interface EditorActions {
   setBlocks: (blocks: RenderBlockData[]) => void
   getTotal: () => number
+  getActiveBlock: () => RenderBlockData
   reorder: (startIndex: number, endIndex: number) => void
   move: (type: 'up' | 'down', index: number) => void
   del: (index: number) => void
@@ -49,6 +50,7 @@ const useEditor = create(
       set(cloneDeep(initialStates))
     },
     getTotal: () => get().editorData.blocks.length,
+    getActiveBlock: () => get().editorData.blocks?.[get().active],
     reorder: (startIndex, endIndex) => {
       const editorData = cloneDeep(get().editorData)
       const blocks = editorData.blocks
@@ -145,10 +147,10 @@ function createBlock(component: RenderComponent): RenderBlockData {
     },
     hasResize: false,
     props: Object.entries(component.props || {}).reduce((prev, [propName, propSchema]) => {
-      if (propSchema?.defaultValue)
-        prev[propName] = propSchema?.defaultValue
+      if (propSchema?.default)
+        prev[propName] = propSchema?.default
       return prev
-    }, {} as Record<string, any>),
+    }, {} as Record<string, EditorProps>),
     draggable: component.draggable ?? true, // 是否可以拖拽
     showStyleConfig: component.showStyleConfig ?? true, // 是否显示组件样式配置
     animations: [], // 动画集

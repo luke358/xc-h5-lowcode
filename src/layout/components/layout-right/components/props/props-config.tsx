@@ -1,6 +1,7 @@
 import React from 'react'
-import { Input, Select, Switch } from 'antd'
+import { Input, InputNumber, Select, Switch } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
+import OptionList from 'src/components/filter-component/OptionList'
 
 interface PropsConfigProps {
   block: RenderBlockData
@@ -30,6 +31,16 @@ export default function PropsConfig(props: PropsConfigProps) {
         formItemProps.valuePropName = 'checked'
         item = (
           <Switch />
+        )
+        break
+      case 'inputNumber':
+        item = (
+          <InputNumber />
+        )
+        break
+      case 'optionList':
+        item = (
+            <OptionList {...value} />
         )
     }
 
