@@ -18,11 +18,11 @@ export default function CompRender(props: PropsWithChildren<{
   // const move = useEditor(state => state.move)
   // const del = useEditor(state => state.del)
   // const copy = useEditor(state => state.copy)
-  const setActive = useEditor(state => state.setActive)
+  // const setActive = useEditor(state => state.setActive)
   const active = useEditor(state => state.active)
 
   return (
-    <CompRenderStyle onClick={() => { setActive(index) }} active={active === index}>
+    <CompRenderStyle active={active === index}>
       {props.children}
       {/* {active === index
         ? <div className="absolute top-0 right-0 translate-x-full px-[8px]">
