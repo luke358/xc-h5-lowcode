@@ -1,4 +1,4 @@
-import { Form } from 'antd'
+import { Empty, Form } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import React from 'react'
 import { editorComponent } from 'src/register'
@@ -15,7 +15,7 @@ export default function Props() {
     const content = []
 
     if (!currentBlock)
-      return
+      return <Empty />
     const component = editorComponent.componentMap[currentBlock.componentKey]
     content.push(<FormItem key={`${currentBlock._id}`} label="组件ID">{currentBlock._id}</FormItem>)
     if (component.props)
