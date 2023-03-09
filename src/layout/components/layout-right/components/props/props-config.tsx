@@ -11,7 +11,7 @@ export default function PropsConfig(props: PropsConfigProps) {
   const { block, component } = props
   const blockProps = block.props
 
-  const renderItem = (key: string, value: any) => {
+  const renderBlockProps = (key: string, value: any) => {
     let item = null
     const formItemProps: any = {}
     switch (value.type) {
@@ -48,7 +48,7 @@ export default function PropsConfig(props: PropsConfigProps) {
   }
   return <>{
     Object.entries(component.props || {}).map(([key, value]) => {
-      return renderItem(key, value)
+      return renderBlockProps(key, value)
     })
   }</>
 }
