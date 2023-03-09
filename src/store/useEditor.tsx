@@ -31,7 +31,7 @@ interface EditorActions {
   move: (type: 'up' | 'down', index: number) => void
   del: (index: number) => void
   setActive: (index: number) => void
-  add: (item: RenderComponent, index: number) => void
+  add: (item: RenderComponent, index?: number) => void
   copy: (index: number) => void
   update: (key: string | string[], value: any, index?: number) => void
   clear: () => void
@@ -67,11 +67,11 @@ const useEditor = create(temporal<Editor & EditorActions>((set, get) => ({
     blocks.splice(index, 1)
     set({ editorData })
   },
-  add: (item: RenderComponent, index) => {
+  add: (item: RenderComponent, _index) => {
     const editorData = cloneDeep(get().editorData)
     const blocks = editorData.blocks
     const block = createBlock(item)
-
+    const index = _index ?? blocks.length
     blocks.splice(index, 0, block)
 
     set({ editorData })

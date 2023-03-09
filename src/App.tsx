@@ -3,6 +3,8 @@ import { ThemeProvider } from 'styled-components'
 import type { ThemeConfig } from 'antd'
 import { ConfigProvider, theme } from 'antd'
 import { useLocalStorageState } from 'ahooks'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import routes from './router'
 import useTheme from './store/useTheme'
 
@@ -13,11 +15,13 @@ function App() {
   const themeVal = useTheme(state => (state.theme || localTheme || { token }))
 
   return (
-    <ConfigProvider theme={themeVal}>
-      <ThemeProvider theme={themeVal.token}>
-        {useRoutes(routes)}
-      </ThemeProvider>
-    </ConfigProvider>
+    <DndProvider backend={HTML5Backend}>
+      <ConfigProvider theme={themeVal}>
+        <ThemeProvider theme={themeVal.token}>
+          {useRoutes(routes)}
+        </ThemeProvider>
+      </ConfigProvider>
+    </DndProvider>
   )
 }
 

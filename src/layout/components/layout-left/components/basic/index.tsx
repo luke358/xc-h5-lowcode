@@ -1,4 +1,5 @@
 import React from 'react'
+// import CompPreview from 'src/components/comp-preview'
 import DragList from 'src/components/drag-list'
 import { editorComponent } from 'src/register'
 
