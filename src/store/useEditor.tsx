@@ -33,7 +33,7 @@ interface EditorActions {
   setActive: (index: number) => void
   add: (item: RenderComponent, index: number) => void
   copy: (index: number) => void
-  update: (key: string | string[], value: any) => void
+  update: (key: string | string[], value: any, index?: number) => void
   clear: () => void
 }
 
@@ -83,9 +83,15 @@ const useEditor = create(temporal<Editor & EditorActions>((set, get) => ({
     blocks.splice(index, 0, { ...item, _id: nanoid() } as any)
     set({ editorData })
   },
-  update(key, value) {
+  /**
+   * 更新当前block的属性
+   * @param {string} key 属性key
+   * @param {any} value 属性值
+   * @param {number | null} [_index] 索引
+   */
+  update(key, value, _index) {
     const editorData = cloneDeep(get().editorData)
-    const index = get().active
+    const index = _index ?? get().active
     const blocks = editorData.blocks
     let block = blocks[index]
 
