@@ -21,7 +21,10 @@ export default function Props() {
     const component = editorComponent.componentMap[currentBlock.componentKey]
     content.push(<FormItem key={`${currentBlock._id}`} label="组件ID">{currentBlock._id}</FormItem>)
     if (component.props)
-      content.push(<PropsConfig component={component} key={'props'} block={currentBlock} />)
+      content.push(<PropsConfig attrs={component.props} blockProps={currentBlock.props} attrKey="props" key={'props'} block={currentBlock} />)
+
+    if (component.styles)
+      content.push(<PropsConfig attrs={component.styles} blockProps={currentBlock.styles} attrKey="styles" key={'styles'} block={currentBlock} />)
 
     return content
   }
@@ -29,7 +32,7 @@ export default function Props() {
     <Form form={form} onValuesChange={(changedValues, values) => {
       Object.entries(values).forEach(([key, value]) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [_id, ...k] = key.split('-')
+        const [_id, ...k] = key.split('$')
 
         update(k, value)
       })

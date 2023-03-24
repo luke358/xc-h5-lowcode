@@ -136,15 +136,20 @@ function createBlock(component: RenderComponent): RenderBlockData {
     label: component!.label,
     adjustPosition: true,
     focus: false,
-    styles: {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      paddingTop: '0',
-      paddingRight: '0',
-      paddingLeft: '0',
-      paddingBottom: '0',
-      tempPadding: '0',
-    },
+    styles: Object.entries(component.styles || {}).reduce((prev, [propName, propSchema]) => {
+      if ((propSchema as any)?.default)
+        prev[propName] = (propSchema as any)?.default
+      return prev
+    }, {} as Record<string, EditorProps>),
+    // {
+    //   display: 'flex',
+    //   justifyContent: 'flex-start',
+    //   paddingTop: '0',
+    //   paddingRight: '0',
+    //   paddingLeft: '0',
+    //   paddingBottom: '0',
+    //   tempPadding: '0',
+    // },
     hasResize: false,
     props: Object.entries(component.props || {}).reduce((prev, [propName, propSchema]) => {
       if (propSchema?.default)

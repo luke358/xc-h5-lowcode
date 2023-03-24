@@ -54,7 +54,7 @@ export default function Editor() {
               key={d._id}
               index={i}
             >
-              {editorComponent.componentMap[d.componentKey].render({ props: d.props })}
+              {editorComponent.componentMap[d.componentKey].render({ props: d.props, styles: d.styles })}
             </CompRender>
           </div>)}
         </GridLayout>

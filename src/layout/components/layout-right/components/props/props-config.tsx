@@ -5,11 +5,13 @@ import OptionList from 'src/components/filter-component/OptionList'
 
 interface PropsConfigProps {
   block: RenderBlockData
-  component: RenderComponent
+  attrs: any
+  blockProps: Record<string, any>
+  attrKey: string
 }
 export default function PropsConfig(props: PropsConfigProps) {
-  const { block, component } = props
-  const blockProps = block.props
+  const { block, attrs, blockProps, attrKey } = props
+  // const blockProps = block.props
 
   const renderBlockProps = (key: string, value: any) => {
     let item = null
@@ -42,12 +44,15 @@ export default function PropsConfig(props: PropsConfigProps) {
         item = (
             <OptionList {...value} />
         )
+        break
+      default:
+        item = (<div>{value.type}组件暂未实现</div>)
     }
 
-    return <FormItem {...formItemProps} initialValue={blockProps[key]} name={`${block._id}-props-${key}`} key={`${block._id}-${key}`} label={value.label}>{item}</FormItem>
+    return <FormItem {...formItemProps} initialValue={blockProps[key]} name={`${block._id}$${attrKey}$${key}`} key={`${block._id}$${key}`} label={value.label}>{item}</FormItem>
   }
   return <>{
-    Object.entries(component.props || {}).map(([key, value]) => {
+    Object.entries(attrs || {}).map(([key, value]) => {
       return renderBlockProps(key, value)
     })
   }</>
