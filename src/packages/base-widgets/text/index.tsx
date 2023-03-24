@@ -9,7 +9,7 @@ export default {
   props: {
     children: {
       type: 'input',
-      label: '默认值',
+      label: '文本内容',
       default: '我是文本',
     },
   },
