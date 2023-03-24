@@ -24,10 +24,10 @@ export default {
       label: '文字大小',
       default: 14,
     },
-    // backgroundColor: {
-    //   type: 'ColorPicker',
-    //   label: '背景颜色',
-    //   default: 'transparent',
-    // },
+    backgroundColor: {
+      type: 'ColorPicker',
+      label: '背景颜色',
+      default: 'transparent',
+    },
   },
 }
