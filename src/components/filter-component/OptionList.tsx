@@ -25,6 +25,17 @@ export default function OptionList(props: any) {
       onChange(newInnerValue)
     }
   }
+
+  const addOption = () => {
+    const newInnerValue = cloneDeep(innerValue)
+    newInnerValue?.push({ label: `选项${newInnerValue.length + 1}`, value: `${newInnerValue.length + 1}`, checked: false })
+    setInnerValue(newInnerValue)
+    onChange(newInnerValue)
+  }
+  // const delOption = (index) => {
+
+  // }
+
   return (<>
 
     {innerValue?.map((item, index) => (
@@ -45,7 +56,7 @@ export default function OptionList(props: any) {
       </div>
     ))}
     <Form.Item>
-      <Button type="dashed" onClick={() => { }} block icon={<PlusOutlined />}>
+      <Button type="dashed" onClick={addOption} block icon={<PlusOutlined />}>
         添加选项
       </Button>
     </Form.Item></>
